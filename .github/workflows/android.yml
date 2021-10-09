@@ -1,0 +1,21 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v1
+     - uses: actions/checkout@master
+     - name: SonarQube Scan
+       uses: kitabisa/sonarqube-action@v1.1.0
+       with:
+        host: ${{ secrets.SONARQUBE_HOST }}
+        login: ${{ secrets.SONARQUBE_TOKEN }}
+        projectKey: demo
+        projectName: demo
