@@ -11,6 +11,8 @@ jobs:
    steps:
             
      - uses: actions/checkout@v2
+     - name: Installing Jq
+       run: apt-get install jq -y
      
 
      - name: Setup Java
@@ -28,6 +30,13 @@ jobs:
          -Dsonar.projectKey=demo
          -Dsonar.projectName=demo
          
+     - name: waiting for quality gates status
+       run: sleep 10
+     - name: Retreiving Status of quality gates and storeing in one file
+       run: curl -s -u ${{secrets.USER}}:${{secrets.USERPASS}} ${{secrets.SONARQUBE_HOST}}/api/qualitygates/project_status?projectKey=demo >result.json
+     - name: Condition for stoping pipeline
+       run: if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then exit 1 ; fi
+     
      - name: Build with gradle
        run: ./gradlew build
        
