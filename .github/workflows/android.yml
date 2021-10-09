@@ -27,3 +27,12 @@ jobs:
          -Dsonar.host.url=${{ secrets.SONARQUBE_HOST}}
          -Dsonar.projectKey=demo
          -Dsonar.projectName=demo
+         
+     - name: Build with gradle
+       run: ./gradlew build
+       
+     - name: Upload apk
+       uses: actions/upload-artifact@v2.1.4
+       with:
+        name: app
+        path: app/build/outputs/apk/debug/app-debug.apk
