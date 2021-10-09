@@ -27,8 +27,8 @@ jobs:
      - name: Run sonarqube
 
        run: sonar-scanner
-         -Dsonar.login=17c8a762ec47c772d1567d773afd7a8f2eb3062b
-         -Dsonar.host.url=https://sonarqube.harappa.education	
+         -Dsonar.login=
+         -Dsonar.host.url=	
          -Dsonar.projectKey=demo
          -Dsonar.projectName=demo
          
