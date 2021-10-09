@@ -27,15 +27,15 @@ jobs:
      - name: Run sonarqube
 
        run: sonar-scanner
-         -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
-         -Dsonar.host.url=${{ secrets.SONARQUBE_HOST}}
+         -Dsonar.login=17c8a762ec47c772d1567d773afd7a8f2eb3062b
+         -Dsonar.host.url=https://sonarqube.harappa.education	
          -Dsonar.projectKey=demo
          -Dsonar.projectName=demo
          
      - name: waiting for quality gates status
        run: sleep 10
      - name: Retreiving Status of quality gates and storeing in one file
-       run: curl -s -u ${{secrets.USER}}:${{secrets.USERPASS}} ${{secrets.SONARQUBE_HOST}}/api/qualitygates/project_status?projectKey=demo >result.json
+       run: curl -s -u ajay:ajay@5678 https://sonarqube.harappa.education/api/qualitygates/project_status?projectKey=demo >result.json
      - name: Condition for stoping pipeline
        run: if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then exit 1 ; fi
      
