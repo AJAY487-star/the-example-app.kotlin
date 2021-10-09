@@ -20,12 +20,10 @@ jobs:
         java-version: '11'
      - name: Setup sonarqube
        uses: warchant/setup-sonar-scanner@v3
-     
-     - uses: actions/checkout@master
-     - name: SonarQube Scan
-       uses: kitabisa/sonarqube-action@v1.1.0
-       with:
-        host: ${{ secrets.SONARQUBE_HOST }}
-        login: ${{ secrets.SONARQUBE_TOKEN }}
-        projectKey: demo
-        projectName: demo
+     - name: Run sonarqube
+
+       run: sonar-scanner
+         -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+         -Dsonar.host.url=${{ secrets.SONARQUBE_HOST}}
+         -Dsonar.projectKey=demo
+         -Dsonar.projectName=demo
