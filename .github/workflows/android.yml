@@ -12,7 +12,7 @@ jobs:
             
      - uses: actions/checkout@v2
      - name: Installing Jq
-       run: apt-get install jq -y
+       run: sudo apt-get install jq -y
      
 
      - name: Setup Java
